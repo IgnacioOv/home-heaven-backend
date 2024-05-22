@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @AllArgsConstructor
-@RestController("products")
+@RestController
+@RequestMapping("products")
 public class ProductsController {
 
     private ProductsService productsService;
@@ -31,6 +32,12 @@ public class ProductsController {
     public ResponseEntity<Void> deleteProduct(@PathVariable int productId) {
         productsService.deleteProduct(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<Product> getProductById(@PathVariable int productId) {
+        Product product = productsService.getProductById(productId);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
 }

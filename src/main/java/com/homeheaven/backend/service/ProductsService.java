@@ -31,4 +31,7 @@ public class ProductsService {
     }
 
 
+    public Product getProductById(int productId) {
+        return productsRepository.findById(productId).orElse(null);
+    }
 }
