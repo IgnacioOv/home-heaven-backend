@@ -40,4 +40,11 @@ public class ProductsController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
+    @GetMapping("/{category}")
+    public ResponseEntity<Iterable<Product>> getProductsByCategory(@PathVariable String category) {
+        Iterable<Product> products = productsService.getProductsByCategory(category);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+
 }

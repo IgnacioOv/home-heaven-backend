@@ -34,4 +34,8 @@ public class ProductsService {
     public Product getProductById(int productId) {
         return productsRepository.findById(productId).orElse(null);
     }
+
+    public Iterable<Product> getProductsByCategory(String category) {
+        return productsRepository.getProductsByCategory(category);
+    }
 }
