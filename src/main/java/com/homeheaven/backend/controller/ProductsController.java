@@ -46,5 +46,10 @@ public class ProductsController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @GetMapping("search/{param}")
+    public ResponseEntity<Iterable<Product>> searchProducts(@PathVariable String param) {
+        Iterable<Product> products = productsService.searchProducts(param);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 
 }

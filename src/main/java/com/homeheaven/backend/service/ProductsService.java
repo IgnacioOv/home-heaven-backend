@@ -38,4 +38,8 @@ public class ProductsService {
     public Iterable<Product> getProductsByCategory(String category) {
         return productsRepository.getProductsByCategory(category);
     }
+
+    public Iterable<Product> searchProducts(String param) {
+        return productsRepository.searchProducts(param);
+    }
 }
