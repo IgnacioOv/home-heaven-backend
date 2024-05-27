@@ -26,7 +26,7 @@ public class Order {
     @Column(name = "total")
     private double total;
 
-    @OneToMany(mappedBy = "order_id")
+    @OneToMany(mappedBy = "order")
     private List<ProductOrder> productOrder;
 
 }

@@ -39,8 +39,4 @@ public class Product {
     @Column(name = "seller_id")
     private long sellerId;
 
-    @OneToOne
-    @JoinColumn(name = "productOrderId", nullable = false)
-    private ProductOrder productOrder;
-
 }

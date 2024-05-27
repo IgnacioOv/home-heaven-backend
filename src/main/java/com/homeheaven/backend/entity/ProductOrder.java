@@ -1,9 +1,7 @@
 package com.homeheaven.backend.entity;
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -19,7 +17,7 @@ public class ProductOrder {
     private Order order;
 
     @OneToOne
-    @JoinColumn(name = "product_order_id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @Column(name = "quantity")
