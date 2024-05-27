@@ -15,6 +15,7 @@ public class ProductOrderService {
         return productOrderRepository.save(productOrder);
     }
 
-
-
+    public ProductOrder getOrdersBySellerId(Long sellerId) {
+        //return
+    }
 }

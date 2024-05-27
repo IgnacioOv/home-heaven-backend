@@ -1,11 +1,10 @@
 package com.homeheaven.backend.entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 
 @Builder
@@ -25,8 +24,5 @@ public class Order {
 
     @Column(name = "total")
     private double total;
-
-    @OneToMany(mappedBy = "order")
-    private List<ProductOrder> productOrder;
 
 }

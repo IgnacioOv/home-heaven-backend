@@ -26,6 +26,9 @@ public class OrderService {
     private final ProductOrderRepository productOrderRepository;
 
 
+
+
+
     @Transactional
     public Order addOrder(long clientId, List<ProductOrder>productOrders){
         Order order = new Order();
@@ -44,4 +47,7 @@ public class OrderService {
     }
 
 
+    public List<Order> getOrdersByBuyerId(Long buyerId) {
+        return orderRepository.findByBuyerId(buyerId);
+    }
 }
