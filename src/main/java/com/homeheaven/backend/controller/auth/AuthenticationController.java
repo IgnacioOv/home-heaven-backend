@@ -11,7 +11,7 @@ import com.homeheaven.backend.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
