@@ -39,6 +39,4 @@ public class Product {
     @Column(name = "seller_id")
     private long sellerId;
 
-
-
 }

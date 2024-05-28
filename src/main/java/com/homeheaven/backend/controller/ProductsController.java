@@ -29,13 +29,13 @@ public class ProductsController {
     }
 
     @DeleteMapping("/delete/{productId}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable int productId) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
         productsService.deleteProduct(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable int productId) {
+    public ResponseEntity<Product> getProductById(@PathVariable Long productId) {
         Product product = productsService.getProductById(productId);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }

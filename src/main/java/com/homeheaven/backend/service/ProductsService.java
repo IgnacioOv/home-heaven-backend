@@ -26,12 +26,12 @@ public class ProductsService {
         return productsRepository.findAll();
     }
 
-    public void deleteProduct(int productId) {
+    public void deleteProduct(Long productId) {
         productsRepository.deleteById(productId);
     }
 
 
-    public Product getProductById(int productId) {
+    public Product getProductById(Long productId) {
         return productsRepository.findById(productId).orElse(null);
     }
 
