@@ -1,19 +1,17 @@
 package com.homeheaven.backend.controller.config;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.function.Function;
-
-import javax.crypto.SecretKey;
-import org.springframework.stereotype.Service;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.security.Key;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
@@ -31,7 +29,7 @@ public class JwtService {
     private String buildToken(UserDetails userDetails, long expiration) {
         return Jwts
                 .builder()
-                .setSubject(userDetails.getUsername()) // prueba@hotmail.com
+                .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .claim("horacio", 1234567)
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
