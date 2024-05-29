@@ -32,11 +32,22 @@ public class OrderService {
         order.setBuyerId(clientId);
         order = orderRepository.save(order);
         double total = 0.0;
-        for(ProductOrder product : productOrders){
-            Product item = productsRepository.findById(product.getProduct().getProductId()).orElseThrow(()->new RuntimeException("Producto no encontrado"));
-            product.setOrder(order);
-            product.setPrice(item.getPrice());
-            total += product.getQuantity() * item.getPrice();
+        for(ProductOrder productOrder : productOrders){
+            Product item = productsRepository.findById(productOrder.getProduct().getProductId()).orElseThrow(()->new RuntimeException("Producto no encontrado"));
+            if (item.getStock() < productOrder.getQuantity()) {
+                throw new RuntimeException("No hay suficiente stock para el producto: " + item.getProductName());
+            }
+
+            // Actualizar el stock del producto
+            int newStock = item.getStock() - productOrder.getQuantity();
+            item.setStock(newStock);
+
+            // Guardamos los cambios en el item(producto)
+            productsRepository.save(item);
+
+            productOrder.setOrder(order);
+            productOrder.setPrice(item.getPrice());
+            total += productOrder.getQuantity() * item.getPrice();
         }
         productOrderRepository.saveAll(productOrders);
         order.setTotal(total);
