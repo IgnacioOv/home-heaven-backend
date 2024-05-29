@@ -1,5 +1,6 @@
 package com.homeheaven.backend.controller.config;
 
+import com.homeheaven.backend.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -24,7 +26,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req -> req.requestMatchers("/orders/add").permitAll()
+                .authorizeHttpRequests(req -> req.requestMatchers("/orders/add").authenticated()
+                        .requestMatchers("/products/add").hasAuthority(Role.SELLER.name())
                         .anyRequest()
                         .permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
