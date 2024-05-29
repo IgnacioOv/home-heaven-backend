@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("productOrder")
 public class ProductOrderController {
+
     private ProductOrderService productOrderService;
-
-
 
     @GetMapping("/{sellerId}")
     public ResponseEntity<ProductOrder> getOrdersBySellerId(@PathVariable Long sellerId) {

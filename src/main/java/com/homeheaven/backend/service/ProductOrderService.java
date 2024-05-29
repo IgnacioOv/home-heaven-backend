@@ -16,6 +16,8 @@ public class ProductOrderService {
     }
 
     public ProductOrder getOrdersBySellerId(Long sellerId) {
-        //return
+        //return productOrderRepository.findById(sellerId); //no se puede usar findById porque seller id no es PK
+        return productOrderRepository.FindBySellerId(sellerId);
     }
+
 }

@@ -26,9 +26,6 @@ public class OrderService {
     private final ProductOrderRepository productOrderRepository;
 
 
-
-
-
     @Transactional
     public Order addOrder(long clientId, List<ProductOrder>productOrders){
         Order order = new Order();
