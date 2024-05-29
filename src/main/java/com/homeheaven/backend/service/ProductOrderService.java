@@ -5,6 +5,8 @@ import com.homeheaven.backend.repository.ProductOrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ProductOrderService {
@@ -18,6 +20,10 @@ public class ProductOrderService {
     public ProductOrder getOrdersBySellerId(Long sellerId) {
         //return productOrderRepository.findById(sellerId); //no se puede usar findById porque seller id no es PK
         return productOrderRepository.FindBySellerId(sellerId);
+    }
+
+    public List<Object[]> findTop3ProductsByTotalQuantity(){
+        return productOrderRepository.findTop3ProductsByTotalQuantity();
     }
 
 }

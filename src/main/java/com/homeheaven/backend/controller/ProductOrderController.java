@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 
@@ -25,6 +27,11 @@ public class ProductOrderController {
     public ResponseEntity<ProductOrder> addProductOrder(@RequestBody ProductOrder productOrder) {
         ProductOrder newProduct = productOrderService.addProductOrder(productOrder);
         return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/recommended")
+    public List<Object[]> findTop3ProductsByTotalQuantity(){
+        return productOrderService.findTop3ProductsByTotalQuantity();
     }
 
 }

@@ -15,4 +15,6 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     List<Order> findByBuyerId(Long buyerId);
     //esto no devuelve biwen
 
+
+
 }
