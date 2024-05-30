@@ -57,5 +57,6 @@ public class OrderService {
 
     public List<Order> getOrdersByBuyerId(Long buyerId) {
         return orderRepository.findByBuyerId(buyerId);
+        //add a list of productOrders inside order
     }
 }
