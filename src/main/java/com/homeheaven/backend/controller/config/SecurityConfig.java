@@ -26,8 +26,28 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req -> req.requestMatchers("/orders/add").authenticated()
+                .authorizeHttpRequests(req -> req
+                        //ORDERS
+                        .requestMatchers("/orders/add").authenticated()
+                        .requestMatchers("/orders/{buyerId}").hasAuthority(Role.BUYER.name())
+                        //PRODUCT ORDER
+                        .requestMatchers("/productOrder/{sellerId}").hasAuthority(Role.SELLER.name())
+                        .requestMatchers("/productOrder/add").authenticated()
+                        //.requestMatchers("/productOrder/recommended")ANYONE
+                        //PRODUCTS
                         .requestMatchers("/products/add").hasAuthority(Role.SELLER.name())
+                        .requestMatchers("/products/edit/{productId}").hasAuthority(Role.SELLER.name())
+                        .requestMatchers("/products/delete/{productId}").hasAuthority(Role.SELLER.name())
+                        //.requestMatchers("/products/{productId}") ANYONE
+                        //.requestMatchers("/products//all") ANYONE
+                        //.requestMatchers("/products/category/{category}") ANYONE
+                        //.requestMatchers("/products/search/{param}") ANYONE
+
+                        //USER
+                        .requestMatchers("/users/all").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers("/users/{userId}").authenticated()
+                        .requestMatchers("/users/delete/{userId}").authenticated()
+
                         .anyRequest()
                         .permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
