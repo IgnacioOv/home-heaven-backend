@@ -8,18 +8,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @AllArgsConstructor
 @RestController
 @RequestMapping("products")
 public class ProductsController {
 
-    private ProductsService productsService;
+    private final ProductsService productsService;
 
     @PostMapping("/add")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
         Product newProduct = productsService.addProduct(product);
         return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/edit/{productId}")
+    public ResponseEntity<Product> editProduct(@PathVariable Long productId, @RequestBody Product productDetails) {
+        Product updatedProduct = productsService.editProduct(productId, productDetails);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 
     @GetMapping("/all")
@@ -40,16 +45,15 @@ public class ProductsController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @GetMapping("/{category}")
+    @GetMapping("/category/{category}")
     public ResponseEntity<Iterable<Product>> getProductsByCategory(@PathVariable String category) {
         Iterable<Product> products = productsService.getProductsByCategory(category);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @GetMapping("search/{param}")
+    @GetMapping("/search/{param}")
     public ResponseEntity<Iterable<Product>> searchProducts(@PathVariable String param) {
         Iterable<Product> products = productsService.searchProducts(param);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-
 }
