@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Getter
 @Setter
@@ -37,6 +40,22 @@ public class ProductsService {
 
     public Iterable<Product> getAllProducts() {
         return productsRepository.findAll();
+    }
+
+
+    public Iterable<Product> getAllProductsWithStock() {
+
+        Iterable<Product> allProducts = productsRepository.findAll();
+
+        List<Product> productsWithStock = new ArrayList<>();
+
+        for (Product product : allProducts) {
+            if (product.getStock() > 0) {
+                productsWithStock.add(product);
+            }
+        }
+
+        return productsWithStock;
     }
 
     public void deleteProduct(Long productId) {

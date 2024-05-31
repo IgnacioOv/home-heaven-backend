@@ -56,4 +56,13 @@ public class ProductsController {
         Iterable<Product> products = productsService.searchProducts(param);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
+    @GetMapping("/stock")
+    public ResponseEntity<Iterable<Product>> getAllProductsWithStock() {
+        Iterable<Product> products = productsService.getAllProductsWithStock();
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+
 }
+
