@@ -43,10 +43,7 @@ public class SecurityConfig {
                         //.requestMatchers("/products/category/{category}") ANYONE
                         //.requestMatchers("/products/search/{param}") ANYONE
 
-                        //USER
-                        .requestMatchers("/users/all").hasAuthority(Role.ADMIN.name())
-                        .requestMatchers("/users/{userId}").authenticated()
-                        .requestMatchers("/users/delete/{userId}").authenticated()
+
 
                         .anyRequest()
                         .permitAll())
