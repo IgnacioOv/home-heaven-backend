@@ -1,5 +1,6 @@
 package com.homeheaven.backend.controller;
 
+import com.homeheaven.backend.dtos.ProductOrderDTO;
 import com.homeheaven.backend.entity.ProductOrder;
 import com.homeheaven.backend.service.ProductOrderService;
 import lombok.AllArgsConstructor;
@@ -11,27 +12,26 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-
 @RequestMapping("productOrder")
 public class ProductOrderController {
 
-    private ProductOrderService productOrderService;
+    private final ProductOrderService productOrderService;
 
     @GetMapping("/{sellerId}")
-    public ResponseEntity<ProductOrder> getOrdersBySellerId(@PathVariable Long sellerId) {
-        ProductOrder productOrder = productOrderService.getOrdersBySellerId(sellerId);
-        return new ResponseEntity<>(productOrder, HttpStatus.OK);
+    public ResponseEntity<List<ProductOrderDTO>> getOrdersBySellerId(@PathVariable Long sellerId) {
+        List<ProductOrderDTO> productOrders = productOrderService.getOrdersBySellerId(sellerId);
+        return new ResponseEntity<>(productOrders, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ProductOrder> addProductOrder(@RequestBody ProductOrder productOrder) {
-        ProductOrder newProduct = productOrderService.addProductOrder(productOrder);
-        return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+    public ResponseEntity<ProductOrderDTO> addProductOrder(@RequestBody ProductOrder productOrder) {
+        ProductOrder newProductOrder = productOrderService.addProductOrder(productOrder);
+        ProductOrderDTO productOrderDTO = productOrderService.convertToDTO(newProductOrder);
+        return new ResponseEntity<>(productOrderDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping("/recommended")
-    public List<Object[]> findTop3ProductsByTotalQuantity(){
-        return productOrderService.findTop3ProductsByTotalQuantity();
+    @GetMapping("/recommended/{sellerId}")
+    public List<Object[]> findTop3ProductsByTotalQuantity(@PathVariable Long sellerId) {
+        return productOrderService.findTop3ProductsByTotalQuantity(sellerId);
     }
-
 }

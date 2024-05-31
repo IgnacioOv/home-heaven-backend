@@ -16,11 +16,12 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder, Long
     @Query("SELECT po FROM ProductOrder po " +
             "JOIN po.product p " +
             "WHERE p.sellerId = ?1")
-    ProductOrder FindBySellerId(Long sellerId);
+    List<ProductOrder> findBySellerId(Long sellerId);
 
-    @Query("SELECT po.product, SUM(po.quantity) AS total_quantity " +
+    @Query("SELECT po.product.productId AS productId, SUM(po.quantity) AS totalQuantity " +
             "FROM ProductOrder po " +
-            "GROUP BY po.product " +
-            "ORDER BY total_quantity DESC")
-    List<Object[]> findTop3ProductsByTotalQuantity();
+            "WHERE po.product.sellerId = ?1 " +
+            "GROUP BY po.product.productId " +
+            "ORDER BY totalQuantity DESC")
+    List<Object[]> findTop3ProductsByTotalQuantity(Long sellerId);
 }

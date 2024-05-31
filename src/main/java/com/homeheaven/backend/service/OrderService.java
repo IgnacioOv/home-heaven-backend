@@ -71,12 +71,12 @@ public class OrderService {
         orderDTO.setTotal(order.getTotal());
 
         List<ProductOrderDTO> productOrderDTOs = productOrders.stream().map(po -> {
-            ProductOrderDTO productOrderDTO = new ProductOrderDTO();
-            productOrderDTO.setProductOrderId(po.getProductOrderId());
-            productOrderDTO.setProductId(po.getProduct().getProductId());
-            productOrderDTO.setQuantity(po.getQuantity());
-            productOrderDTO.setPrice(po.getPrice());
-            return productOrderDTO;
+            return new ProductOrderDTO(
+                    po.getProductOrderId(),
+                    po.getProduct().getProductId(),
+                    po.getQuantity(),
+                    po.getPrice()
+            );
         }).collect(Collectors.toList());
 
         orderDTO.setProductOrders(productOrderDTOs);

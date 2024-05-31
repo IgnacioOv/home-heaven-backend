@@ -1,29 +1,39 @@
 package com.homeheaven.backend.service;
 
+import com.homeheaven.backend.dtos.ProductOrderDTO;
 import com.homeheaven.backend.entity.ProductOrder;
 import com.homeheaven.backend.repository.ProductOrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class ProductOrderService {
 
-    private ProductOrderRepository productOrderRepository;
+    private final ProductOrderRepository productOrderRepository;
 
-    public ProductOrder addProductOrder(ProductOrder productOrder){
+    public ProductOrder addProductOrder(ProductOrder productOrder) {
         return productOrderRepository.save(productOrder);
     }
 
-    public ProductOrder getOrdersBySellerId(Long sellerId) {
-        //return productOrderRepository.findById(sellerId); //no se puede usar findById porque seller id no es PK
-        return productOrderRepository.FindBySellerId(sellerId);
+    public List<ProductOrderDTO> getOrdersBySellerId(Long sellerId) {
+        List<ProductOrder> productOrders = productOrderRepository.findBySellerId(sellerId);
+        return productOrders.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public List<Object[]> findTop3ProductsByTotalQuantity(){
-        return productOrderRepository.findTop3ProductsByTotalQuantity();
+    public List<Object[]> findTop3ProductsByTotalQuantity(Long sellerId) {
+        return productOrderRepository.findTop3ProductsByTotalQuantity(sellerId);
     }
 
+    public ProductOrderDTO convertToDTO(ProductOrder productOrder) {
+        return new ProductOrderDTO(
+                productOrder.getProductOrderId(),
+                productOrder.getProduct().getProductId(),
+                productOrder.getQuantity(),
+                productOrder.getPrice()
+        );
+    }
 }
