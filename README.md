@@ -4,4 +4,3 @@
 - Ornella Facciola
 - Lucia Galiano
 - Ignacio Oliva Velez
-- Nicolas Han
