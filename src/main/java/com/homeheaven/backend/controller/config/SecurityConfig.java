@@ -27,26 +27,12 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        //ORDERS
-                        .requestMatchers("/orders/add").authenticated()
-                        .requestMatchers("/orders/{buyerId}").authenticated()
-                        //PRODUCT ORDER
-                        .requestMatchers("/productOrder/{sellerId}").authenticated()
-                        .requestMatchers("/productOrder/add").authenticated()
-                        //.requestMatchers("/productOrder/recommended")ANYONE
-                        //PRODUCTS
-                        .requestMatchers("/products/add").hasAuthority(Role.SELLER.name())
-                        .requestMatchers("/products/edit/{productId}").hasAuthority(Role.SELLER.name())
-                        .requestMatchers("/products/delete/{productId}").hasAuthority(Role.SELLER.name())
-                        //.requestMatchers("/products/{productId}") ANYONE
-                        //.requestMatchers("/products//all") ANYONE
-                        //.requestMatchers("/products/category/{category}") ANYONE
-                        //.requestMatchers("/products/search/{param}") ANYONE
-
-
-
+                        .requestMatchers("products/all","products/{productId}","products/category/{category}","products/search/{param}","products/add","products/edit/{productId}","products/delete/{productId}").permitAll()
+                        .requestMatchers("products/edit","products/delete/{productId}","products/add").hasAnyAuthority(Role.SELLER.name(),Role.ADMIN.name())
+                        .requestMatchers("users/register","users/authenticate").permitAll()
+                        .requestMatchers("productOrder/recommended").permitAll()
                         .anyRequest()
-                        .permitAll())
+                        .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

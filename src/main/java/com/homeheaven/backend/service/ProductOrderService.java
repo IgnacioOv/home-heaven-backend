@@ -24,8 +24,8 @@ public class ProductOrderService {
         return productOrders.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public List<Object[]> findTop3ProductsByTotalQuantity(Long sellerId) {
-        return productOrderRepository.findTop3ProductsByTotalQuantity(sellerId);
+    public List<Object[]> getRecommendedProducts() {
+        return productOrderRepository.getRecommendedProducts();
     }
 
     public ProductOrderDTO convertToDTO(ProductOrder productOrder) {

@@ -30,8 +30,8 @@ public class ProductOrderController {
         return new ResponseEntity<>(productOrderDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping("/recommended/{sellerId}")
-    public List<Object[]> findTop3ProductsByTotalQuantity(@PathVariable Long sellerId) {
-        return productOrderService.findTop3ProductsByTotalQuantity(sellerId);
+    @GetMapping("/recommended")
+    public List<Object[]> getRecommendedProducts() {
+        return productOrderService.getRecommendedProducts();
     }
 }
