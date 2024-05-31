@@ -1,7 +1,6 @@
 package com.homeheaven.backend.controller;
 
-
-import com.homeheaven.backend.entity.Order;
+import com.homeheaven.backend.dtos.OrderDTO;
 import com.homeheaven.backend.entity.ProductOrder;
 import com.homeheaven.backend.service.OrderService;
 import lombok.AllArgsConstructor;
@@ -18,17 +17,15 @@ public class OrdersController {
 
     private final OrderService orderService;
 
-
     @GetMapping("/{buyerId}")
-    public ResponseEntity<List<Order>> getOrdersByBuyerId(@PathVariable Long buyerId) {
-        List<Order> orders = orderService.getOrdersByBuyerId(buyerId);
+    public ResponseEntity<List<OrderDTO>> getOrdersByBuyerId(@PathVariable Long buyerId) {
+        List<OrderDTO> orders = orderService.getOrdersByBuyerId(buyerId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Order> addOrder(@RequestParam Long clientId, @RequestBody List<ProductOrder> productOrders) {
-        Order newOrder = orderService.addOrder(clientId, productOrders);
+    public ResponseEntity<OrderDTO> addOrder(@RequestParam Long clientId, @RequestBody List<ProductOrder> productOrders) {
+        OrderDTO newOrder = orderService.addOrder(clientId, productOrders);
         return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
-
 }

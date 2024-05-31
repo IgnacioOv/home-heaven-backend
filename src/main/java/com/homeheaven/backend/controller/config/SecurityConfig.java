@@ -29,9 +29,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req
                         //ORDERS
                         .requestMatchers("/orders/add").authenticated()
-                        .requestMatchers("/orders/{buyerId}").hasAuthority(Role.BUYER.name())
+                        .requestMatchers("/orders/{buyerId}").authenticated()
                         //PRODUCT ORDER
-                        .requestMatchers("/productOrder/{sellerId}").hasAuthority(Role.SELLER.name())
+                        .requestMatchers("/productOrder/{sellerId}").authenticated()
                         .requestMatchers("/productOrder/add").authenticated()
                         //.requestMatchers("/productOrder/recommended")ANYONE
                         //PRODUCTS

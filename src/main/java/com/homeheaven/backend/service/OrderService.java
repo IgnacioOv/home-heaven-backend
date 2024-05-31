@@ -1,5 +1,7 @@
 package com.homeheaven.backend.service;
 
+import com.homeheaven.backend.dtos.OrderDTO;
+import com.homeheaven.backend.dtos.ProductOrderDTO;
 import com.homeheaven.backend.entity.Order;
 import com.homeheaven.backend.entity.Product;
 import com.homeheaven.backend.entity.ProductOrder;
@@ -13,7 +15,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 @Service
 @Getter
@@ -25,38 +27,60 @@ public class OrderService {
     private final ProductsRepository productsRepository;
     private final ProductOrderRepository productOrderRepository;
 
-
     @Transactional
-    public Order addOrder(long clientId, List<ProductOrder>productOrders){
+    public OrderDTO addOrder(long clientId, List<ProductOrder> productOrders) {
         Order order = new Order();
         order.setBuyerId(clientId);
         order = orderRepository.save(order);
+
         double total = 0.0;
-        for(ProductOrder productOrder : productOrders){
-            Product item = productsRepository.findById(productOrder.getProduct().getProductId()).orElseThrow(()->new RuntimeException("Producto no encontrado"));
-            if (item.getStock() < productOrder.getQuantity()) {
-                throw new RuntimeException("No hay suficiente stock para el producto: " + item.getProductName());
+        for (ProductOrder productOrder : productOrders) {
+            Product product = productsRepository.findById(productOrder.getProduct().getProductId())
+                    .orElseThrow(() -> new RuntimeException("Product not found"));
+
+            if (product.getStock() < productOrder.getQuantity()) {
+                throw new RuntimeException("Not enough stock for product: " + product.getProductName());
             }
 
-            // Actualizar el stock del producto
-            int newStock = item.getStock() - productOrder.getQuantity();
-            item.setStock(newStock);
-
-            // Guardamos los cambios en el item(producto)
-            productsRepository.save(item);
+            int newStock = product.getStock() - productOrder.getQuantity();
+            product.setStock(newStock);
+            productsRepository.save(product);
 
             productOrder.setOrder(order);
-            productOrder.setPrice(item.getPrice());
-            total += productOrder.getQuantity() * item.getPrice();
+            productOrder.setPrice(product.getPrice());
+            total += productOrder.getQuantity() * product.getPrice();
         }
         productOrderRepository.saveAll(productOrders);
         order.setTotal(total);
-        return orderRepository.save(order);
+        order = orderRepository.save(order);
+
+        return convertToDTO(order, productOrders);
     }
 
+    public List<OrderDTO> getOrdersByBuyerId(Long buyerId) {
+        List<Order> orders = orderRepository.findByBuyerId(buyerId);
+        return orders.stream()
+                .map(order -> convertToDTO(order, productOrderRepository.findByOrderId(order.getOrderId())))
+                .collect(Collectors.toList());
+    }
 
-    public List<Order> getOrdersByBuyerId(Long buyerId) {
-        return orderRepository.findByBuyerId(buyerId);
-        //add a list of productOrders inside order
+    private OrderDTO convertToDTO(Order order, List<ProductOrder> productOrders) {
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setOrderId(order.getOrderId());
+        orderDTO.setBuyerId(order.getBuyerId());
+        orderDTO.setTotal(order.getTotal());
+
+        List<ProductOrderDTO> productOrderDTOs = productOrders.stream().map(po -> {
+            ProductOrderDTO productOrderDTO = new ProductOrderDTO();
+            productOrderDTO.setProductOrderId(po.getProductOrderId());
+            productOrderDTO.setProductId(po.getProduct().getProductId());
+            productOrderDTO.setQuantity(po.getQuantity());
+            productOrderDTO.setPrice(po.getPrice());
+            return productOrderDTO;
+        }).collect(Collectors.toList());
+
+        orderDTO.setProductOrders(productOrderDTOs);
+
+        return orderDTO;
     }
 }

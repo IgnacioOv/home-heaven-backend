@@ -7,12 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface ProductOrderRepository extends JpaRepository<ProductOrder, Long> {
 
-//    @Query("SELECT po FROM ProductOrder po WHERE po.seller_id = ?1")
-//    ProductOrder FindBySellerId(Long sellerId);
+    @Query("SELECT po FROM ProductOrder po WHERE po.order.orderId = ?1")
+    List<ProductOrder> findByOrderId(Long orderId);
 
     @Query("SELECT po FROM ProductOrder po " +
             "JOIN po.product p " +
@@ -24,6 +23,4 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder, Long
             "GROUP BY po.product " +
             "ORDER BY total_quantity DESC")
     List<Object[]> findTop3ProductsByTotalQuantity();
-
-
 }

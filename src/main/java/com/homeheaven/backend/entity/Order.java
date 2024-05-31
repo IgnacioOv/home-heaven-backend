@@ -6,17 +6,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
-@Builder
 @Data
-@Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="orders")
-
+@Entity
+@Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long orderId;
 
     @Column(name = "buyer_id")
@@ -25,4 +25,6 @@ public class Order {
     @Column(name = "total")
     private double total;
 
+    @OneToMany(mappedBy = "order")
+    private List<ProductOrder> productOrders;
 }

@@ -6,10 +6,9 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "product_order")
-
 public class ProductOrder {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long productOrderId;
 
     @ManyToOne
