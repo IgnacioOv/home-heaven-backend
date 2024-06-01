@@ -1,0 +1,465 @@
+{
+	"info": {
+		"_postman_id": "f977d8df-fbbe-4528-bbe6-44ca440d30e0",
+		"name": "Home heaven",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17287516"
+	},
+	"item": [
+		{
+			"name": "Get all products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/products/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Products By Category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/category/Hogar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"category",
+						"Hogar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product by search term",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/products/search/pira",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"search",
+						"pira"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get recommended products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productOrder/recommended",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productOrder",
+						"recommended"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\":\"Lucia\",\r\n    \"lastname\":\"Galiano\",\r\n    \"username\":\"lugaliano\",\r\n    \"email\":\"lg@example.com\",\r\n    \"userPassword\":\"1234\",\r\n    \"role\":\"SELLER\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"iov@example.com\",\r\n    \"userPassword\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZ29tZXpAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTcxOTcxNzIsImV4cCI6MTcxNzI4MzU3Mn0.IO5vX81AFLkmKsIMCAvxD1LEmW7ft8cA_yv8M5DKI94",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productName\": \"Lámpara de escritorio LED\",\r\n    \"productDescription\": \"Lámpara de escritorio ajustable con luz LED y puerto USB\",\r\n    \"category\": \"Hogar\",\r\n    \"stock\": 50,\r\n    \"price\": 49.99,\r\n    \"imageUrl\": \"https://example.com/lamp.jpg\",\r\n    \"sellerId\": 10012\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/products/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZ29tZXpAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTcxOTcxNzIsImV4cCI6MTcxNzI4MzU3Mn0.IO5vX81AFLkmKsIMCAvxD1LEmW7ft8cA_yv8M5DKI94",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productName\": \"Nuevo nombre de producto\",\r\n    \"productDescription\": \"Nueva descripción del producto\",\r\n    \"category\": \"Nueva categoría\",\r\n    \"stock\": 20,\r\n    \"price\": 59.99,\r\n    \"imageUrl\": \"https://nuevaurl.com/imagen.jpg\",\r\n    \"sellerId\": 10012\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/products/edit/10004",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"edit",
+						"10004"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/products/delete/10007",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"delete",
+						"10007"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpb3ZAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTcxOTg2ODgsImV4cCI6MTcxNzI4NTA4OH0.FFESe1o9Expe2DVXUsT21WyjNPQP4R0U4KEDn9WuY1c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"product\": {\r\n            \"productId\": 10011\r\n        },\r\n        \"quantity\": 2\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/orders/add?clientId=10013",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"add"
+					],
+					"query": [
+						{
+							"key": "clientId",
+							"value": "10013"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZ29tZXpAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTcxOTcxNzIsImV4cCI6MTcxNzI4MzU3Mn0.IO5vX81AFLkmKsIMCAvxD1LEmW7ft8cA_yv8M5DKI94",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/delete/10004",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"delete",
+						"10004"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products in stock",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/products/stock",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"stock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get buyer orders",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpb3ZAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTcxOTQ0MTIsImV4cCI6MTcxNzI4MDgxMn0.HQN_bBjmvJ8IzLResOSZoNpAOzF8Z5Jok-tFz3LkLz4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/orders/6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get orders by seller",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpb3ZAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTcxOTQ0MTIsImV4cCI6MTcxNzI4MDgxMn0.HQN_bBjmvJ8IzLResOSZoNpAOzF8Z5Jok-tFz3LkLz4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productOrder/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productOrder",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpb3ZAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTcyMDEyMjIsImV4cCI6MTcxNzI4NzYyMn0.5cLKhPnpiqFLd261x6EKJGyhJY_7LMcYhh5C-yBEwkg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"ioliva@example.com\",\r\n    \"firstName\": \"Ignacio\",\r\n    \"lastName\": \"Oliva\",\r\n    \"userPassword\":\"12345\",\r\n    \"role\":\"ADMIN\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/edit/10013",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"edit",
+						"10013"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpb3ZAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTcxOTk1MDUsImV4cCI6MTcxNzI4NTkwNX0.hQuNqFfBYtcpfbW_vNhGqEgZX6dIsndjzB0AJa9tmC0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/orders/order/10007",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"order",
+						"10007"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
