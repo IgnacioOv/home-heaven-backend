@@ -83,4 +83,12 @@ public class OrderService {
 
         return orderDTO;
     }
+
+    public OrderDTO getOrderById(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        List<ProductOrder> productOrders = productOrderRepository.findByOrderId(orderId);
+        return convertToDTO(order, productOrders);
+    }
 }

@@ -28,4 +28,13 @@ public class OrdersController {
         OrderDTO newOrder = orderService.addOrder(clientId, productOrders);
         return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
+
+
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long orderId) {
+        OrderDTO order = orderService.getOrderById(orderId);
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+
 }

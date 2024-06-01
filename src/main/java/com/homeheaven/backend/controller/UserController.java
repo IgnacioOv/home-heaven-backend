@@ -40,4 +40,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/edit/{userId}")
+public ResponseEntity<Object> editUser(@PathVariable int userId, @RequestBody User userDetails) {
+        userService.editUser(userId, userDetails);
+        return new ResponseEntity<>( HttpStatus.OK);
+    }
+
+
 }
