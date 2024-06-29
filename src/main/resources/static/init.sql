@@ -1,4 +1,7 @@
+create database homeheaven;
+
 use homeheaven
+
 
 create table role(
 	role_id bigint identity(1,1) primary key,
@@ -53,30 +56,13 @@ CREATE TABLE orders (
 
 -- Producto 1: Aspiradora Robot
 INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
-VALUES ('Aspiradora Robot', 'Aspiradora robot inteligente con programación y control remoto.', 'http://example.com/images/aspiradora_robot.jpg', 299.99, 'Hogar', 20, 10014);
+VALUES ('Aspiradora Robot', 'Aspiradora robot inteligente con programaciï¿½n y control remoto.', 'http://example.com/images/aspiradora_robot.jpg', 299.99, 'Hogar', 20, 10014);
 
 -- Producto 2: Cafetera de Goteo
 INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
-VALUES ('Cafetera de Goteo', 'Cafetera de goteo con temporizador programable y jarra térmica.', 'http://example.com/images/cafetera_goteo.jpg', 89.99, 'Hogar', 35, 10014);
+VALUES ('Cafetera de Goteo', 'Cafetera de goteo con temporizador programable y jarra tï¿½rmica.', 'http://example.com/images/cafetera_goteo.jpg', 89.99, 'Hogar', 35, 10014);
 
--- Producto 3: Humidificador Ultrasónico
+-- Producto 3: Humidificador Ultrasï¿½nico
 INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
-VALUES ('Humidificador Ultrasónico', 'Humidificador ultrasónico de gran capacidad para mejorar la calidad del aire.', 'http://example.com/images/humidificador_ultrasonico.jpg', 49.99, 'Hogar', 50, 10014);
-
-
-select * from users;
-
-select * from orders;
-
-select * from products;
-
-select * from role
-
-select * from product_order
-
-
-delete from users
-delete from product_order
-delete from products
-delete from orders
+VALUES ('Humidificador Ultrasï¿½nico', 'Humidificador ultrasï¿½nico de gran capacidad para mejorar la calidad del aire.', 'http://example.com/images/humidificador_ultrasonico.jpg', 49.99, 'Hogar', 50, 10014);
 

@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "admin"
+      MSSQL_PID_FILE: /var/run/mssql/mssql.pid
+    volumes:
+      - ./data:/var/opt/mssql/data
+    entrypoint:
+      - /opt/mssql-tools/bin/sqlcmd
+      - -S localhost
+      - -U sa
+      - -P "$SA_PASSWORD"
+      - -i
+      - /var/opt/mssql/init/init.sql
