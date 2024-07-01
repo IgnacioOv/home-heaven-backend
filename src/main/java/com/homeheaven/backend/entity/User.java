@@ -49,11 +49,6 @@ public class User implements UserDetails {
 
 
     @Override
-    public String getUsername() {
-        return getEmail();
-    }
-
-    @Override
     public String getPassword() {
         return getUserPassword();
     }

@@ -1,5 +1,6 @@
 package com.homeheaven.backend.controller.config;
 
+import com.homeheaven.backend.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,7 +30,8 @@ public class JwtService {
     private String buildToken(UserDetails userDetails, long expiration) {
         return Jwts
                 .builder()
-                .setSubject(userDetails.getUsername())
+                .setSubject(((User) userDetails).getEmail())
+                .claim("role", userDetails.getAuthorities().toString().replace("[", "").replace("]", ""))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSecretKey(), SignatureAlgorithm.HS256)
@@ -38,11 +40,12 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractClaim(token, Claims::getSubject);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        return (username.equals(((User)userDetails).getEmail())) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
         return extractClaim(token, Claims::getExpiration).before(new Date());
+
     }
 
     public String extractUsername(String token) {
@@ -61,6 +64,7 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+
     }
 
     private SecretKey getSecretKey() {

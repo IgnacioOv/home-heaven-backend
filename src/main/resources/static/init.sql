@@ -33,6 +33,14 @@ CREATE TABLE products (
 );
 
 
+CREATE TABLE orders (
+    order_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    buyer_id BIGINT NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    CONSTRAINT fk_buyer FOREIGN KEY (buyer_id) REFERENCES users(user_id)
+);
+
+
 CREATE TABLE product_order (
     product_order_id BIGINT IDENTITY(1,1) PRIMARY KEY,
     order_id BIGINT NOT NULL,
@@ -43,12 +51,6 @@ CREATE TABLE product_order (
     CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
-CREATE TABLE orders (
-    order_id BIGINT IDENTITY(1,1) PRIMARY KEY,
-    buyer_id BIGINT NOT NULL,
-    total DECIMAL(10, 2) NOT NULL,
-    CONSTRAINT fk_buyer FOREIGN KEY (buyer_id) REFERENCES users(user_id)
-);
 
 
 
@@ -66,3 +68,18 @@ VALUES ('Cafetera de Goteo', 'Cafetera de goteo con temporizador programable y j
 INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
 VALUES ('Humidificador Ultras�nico', 'Humidificador ultras�nico de gran capacidad para mejorar la calidad del aire.', 'http://example.com/images/humidificador_ultrasonico.jpg', 49.99, 'Hogar', 50, 10014);
 
+insert into role (role_name) values ('BUYER')
+insert into role (role_name) values ('SELLER')
+insert into role (role_name) values ('ADMIN')
+
+select * from users
+
+
+select * from products
+delete from users where user_id = 2
+
+select * from product_order
+
+select * from orders
+
+delete from orders where total = 0

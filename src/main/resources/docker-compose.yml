@@ -1,17 +1,12 @@
-version: "3.8"
+name: home-heaven
 
 services:
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+  home-heaven:
+    image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
+    container_name: home-heaven-db
     environment:
-      SA_PASSWORD: "admin"
-      MSSQL_PID_FILE: /var/run/mssql/mssql.pid
-    volumes:
-      - ./data:/var/opt/mssql/data
-    entrypoint:
-      - /opt/mssql-tools/bin/sqlcmd
-      - -S localhost
-      - -U sa
-      - -P "$SA_PASSWORD"
-      - -i
-      - /var/opt/mssql/init/init.sql
+      MSSQL_SA_PASSWORD: Admin1234
+      ACCEPT_EULA: Y
+      MSSQL_PID: Evaluation
+    ports:
+      - "1433:1433"
