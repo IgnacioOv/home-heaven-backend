@@ -18,20 +18,37 @@ public class ProductOrderController {
     private final ProductOrderService productOrderService;
 
     @GetMapping("/{sellerId}")
-    public ResponseEntity<List<ProductOrderDTO>> getOrdersBySellerId(@PathVariable Long sellerId) {
-        List<ProductOrderDTO> productOrders = productOrderService.getOrdersBySellerId(sellerId);
-        return new ResponseEntity<>(productOrders, HttpStatus.OK);
+    public ResponseEntity<Object> getOrdersBySellerId(@PathVariable Long sellerId) {
+        try {
+            List<ProductOrderDTO> productOrders = productOrderService.getOrdersBySellerId(sellerId);
+            return new ResponseEntity<>(productOrders, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ProductOrderDTO> addProductOrder(@RequestBody ProductOrder productOrder) {
-        ProductOrder newProductOrder = productOrderService.addProductOrder(productOrder);
-        ProductOrderDTO productOrderDTO = productOrderService.convertToDTO(newProductOrder);
-        return new ResponseEntity<>(productOrderDTO, HttpStatus.CREATED);
+    public ResponseEntity<Object> addProductOrder(@RequestBody ProductOrder productOrder) {
+        try {
+            ProductOrder newProductOrder = productOrderService.addProductOrder(productOrder);
+            ProductOrderDTO productOrderDTO = productOrderService.convertToDTO(newProductOrder);
+            return new ResponseEntity<>(productOrderDTO, HttpStatus.CREATED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/recommended")
-    public List<Object[]> getRecommendedProducts() {
-        return productOrderService.getRecommendedProducts();
+    public ResponseEntity<Object> getRecommendedProducts() {
+        try {
+            List<Object[]> recommended = productOrderService.getRecommendedProducts();
+            return new ResponseEntity<>(recommended, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

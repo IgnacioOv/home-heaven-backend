@@ -16,51 +16,91 @@ public class ProductsController {
     private final ProductsService productsService;
 
     @PostMapping("/add")
-    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-        Product newProduct = productsService.addProduct(product);
-        return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+    public ResponseEntity<Object> addProduct(@RequestBody Product product) {
+        try {
+            Product newProduct = productsService.addProduct(product);
+            return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/edit/{productId}")
-    public ResponseEntity<Product> editProduct(@PathVariable Long productId, @RequestBody Product productDetails) {
-        Product updatedProduct = productsService.editProduct(productId, productDetails);
-        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    public ResponseEntity<Object> editProduct(@PathVariable Long productId, @RequestBody Product productDetails) {
+        try {
+            Product updatedProduct = productsService.editProduct(productId, productDetails);
+            return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Iterable<Product>> getAllProducts() {
-        Iterable<Product> products = productsService.getAllProducts();
-        return new ResponseEntity<>(products, HttpStatus.OK);
+    public ResponseEntity<Object> getAllProducts() {
+        try {
+            Iterable<Product> products = productsService.getAllProducts();
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/delete/{productId}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
-        productsService.deleteProduct(productId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Object> deleteProduct(@PathVariable Long productId) {
+        try {
+            productsService.deleteProduct(productId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long productId) {
-        Product product = productsService.getProductById(productId);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+    public ResponseEntity<Object> getProductById(@PathVariable Long productId) {
+        try {
+            Product product = productsService.getProductById(productId);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<Iterable<Product>> getProductsByCategory(@PathVariable String category) {
-        Iterable<Product> products = productsService.getProductsByCategory(category);
-        return new ResponseEntity<>(products, HttpStatus.OK);
+    public ResponseEntity<Object> getProductsByCategory(@PathVariable String category) {
+        try {
+            Iterable<Product> products = productsService.getProductsByCategory(category);
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/search/{param}")
-    public ResponseEntity<Iterable<Product>> searchProducts(@PathVariable String param) {
-        Iterable<Product> products = productsService.searchProducts(param);
-        return new ResponseEntity<>(products, HttpStatus.OK);
+    public ResponseEntity<Object> searchProducts(@PathVariable String param) {
+        try {
+            Iterable<Product> products = productsService.searchProducts(param);
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/stock")
-    public ResponseEntity<Iterable<Product>> getAllProductsWithStock() {
-        Iterable<Product> products = productsService.getAllProductsWithStock();
-        return new ResponseEntity<>(products, HttpStatus.OK);
+    public ResponseEntity<Object> getAllProductsWithStock() {
+        try {
+            Iterable<Product> products = productsService.getAllProductsWithStock();
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 

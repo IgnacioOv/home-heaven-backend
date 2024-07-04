@@ -17,33 +17,58 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        User savedUser = userService.addUser(user);
-        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    public ResponseEntity<Object> addUser(@RequestBody User user) {
+        try {
+            User savedUser = userService.addUser(user);
+            return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable int userId) {
-        User user = userService.getUserById(userId);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<Object> getUserById(@PathVariable int userId) {
+        try {
+            User user = userService.getUserById(userId);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Iterable<User>> getAllUsers() {
-        Iterable<User> users = userService.getAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<Object> getAllUsers() {
+        try {
+            Iterable<User> users = userService.getAllUsers();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/delete/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
-        userService.deleteUser(userId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            userService.deleteUser(userId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/edit/{userId}")
 public ResponseEntity<Object> editUser(@PathVariable int userId, @RequestBody User userDetails) {
-        userService.editUser(userId, userDetails);
-        return new ResponseEntity<>( HttpStatus.OK);
+        try {
+            userService.editUser(userId, userDetails);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 
