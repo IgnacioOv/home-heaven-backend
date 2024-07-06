@@ -27,8 +27,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/products/all", "/products/{productId}", "/products/category/{category}", "/products/search/{param}").permitAll()
-                        .requestMatchers("/products/add", "/products/edit/{productId}", "/products/delete/{productId}", "/products/stock").hasAnyAuthority(Role.SELLER.name(), Role.ADMIN.name())
+                        .requestMatchers("/products/all", "/products/{productId}", "/products/category/{category}", "/products/search/{param}","/products/stock").permitAll()
+                        .requestMatchers("/products/add", "/products/edit/{productId}", "/products/delete/{productId}").hasAnyAuthority(Role.SELLER.name(), Role.ADMIN.name())
                         .requestMatchers("/users/register", "/users/authenticate").permitAll()
                         .requestMatchers("/productOrder/recommended").permitAll()
                         .anyRequest().authenticated()

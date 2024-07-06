@@ -58,7 +58,7 @@ CREATE TABLE product_order (
 
 -- Producto 1: Aspiradora Robot
 INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
-VALUES ('Aspiradora Robot', 'Aspiradora robot inteligente con programaci�n y control remoto.', 'http://example.com/images/aspiradora_robot.jpg', 299.99, 'Hogar', 20, 10014);
+VALUES ('Aspiradora Robot', 'Aspiradora robot inteligente con programaci�n y control remoto.', 'https://l1nq.com/hMEwm', 299.99, 'Hogar', 20, 3);
 
 -- Producto 2: Cafetera de Goteo
 INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
@@ -83,3 +83,4 @@ select * from product_order
 select * from orders
 
 delete from orders where total = 0
+
