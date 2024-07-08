@@ -19,5 +19,5 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder, Long
     List<ProductOrder> findBySellerId(Long sellerId);
 
     @Query("SELECT po.product FROM ProductOrder po GROUP BY po.product ORDER BY COUNT(po.productOrderId) DESC")
-    List<Object[]> getRecommendedProducts();
+    Object[] getRecommendedProducts();
 }

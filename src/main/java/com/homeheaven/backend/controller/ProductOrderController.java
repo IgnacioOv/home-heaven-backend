@@ -43,7 +43,7 @@ public class ProductOrderController {
     @GetMapping("/recommended")
     public ResponseEntity<Object> getRecommendedProducts() {
         try {
-            List<Object[]> recommended = productOrderService.getRecommendedProducts();
+            Object[] recommended = productOrderService.getRecommendedProducts();
             return new ResponseEntity<>(recommended, HttpStatus.OK);
         }
         catch (Exception e) {

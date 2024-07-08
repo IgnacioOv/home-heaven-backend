@@ -56,17 +56,36 @@ CREATE TABLE product_order (
 
 
 
--- Producto 1: Aspiradora Robot
-INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
-VALUES ('Aspiradora Robot', 'Aspiradora robot inteligente con programaci�n y control remoto.', 'https://l1nq.com/hMEwm', 299.99, 'Hogar', 20, 3);
 
 -- Producto 2: Cafetera de Goteo
 INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
-VALUES ('Cafetera de Goteo', 'Cafetera de goteo con temporizador programable y jarra t�rmica.', 'http://example.com/images/cafetera_goteo.jpg', 89.99, 'Hogar', 35, 10014);
+VALUES ('Cafetera de Goteo', 'Cafetera de goteo con temporizador programable y jarra t�rmica.', 'https://orbegozo.com/wp-content/uploads/2019/03/cafetera-de-goteo-orbegozo-CG-4024_1.jpg', 89.99, 'kitchen', 35, 3);
 
--- Producto 3: Humidificador Ultras�nico
+
+-- Producto 1: Toallero Eléctrico
 INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
-VALUES ('Humidificador Ultras�nico', 'Humidificador ultras�nico de gran capacidad para mejorar la calidad del aire.', 'http://example.com/images/humidificador_ultrasonico.jpg', 49.99, 'Hogar', 50, 10014);
+VALUES ('Toallero Eléctrico', 'Toallero eléctrico con temporizador programable y protección contra sobrecalentamiento.', 'https://example.com/images/toallero-electrico.jpg', 129.99, 'bathroom', 20, 3);
+
+-- Producto 2: Espejo LED para Baño
+INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
+VALUES ('Espejo LED para Baño', 'Espejo para baño con iluminación LED y función anti-vaho.', 'https://example.com/images/espejo-led-bano.jpg', 99.99, 'bathroom', 15, 3);
+
+-- Producto 3: Cojín Decorativo
+INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
+VALUES ('Cojín Decorativo', 'Cojín decorativo con diseño moderno y relleno de espuma viscoelástica.', 'https://example.com/images/cojin-decorativo.jpg', 24.99, 'decoration', 50, 3);
+
+-- Producto 4: Lámpara de Pie Vintage
+INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
+VALUES ('Lámpara de Pie Vintage', 'Lámpara de pie con diseño vintage y bombilla de estilo Edison.', 'https://example.com/images/lampara-pie-vintage.jpg', 79.99, 'living', 30, 3);
+
+-- Producto 5: Colcha para Cama
+INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
+VALUES ('Colcha para Cama', 'Colcha para cama de matrimonio con diseño elegante y tela de alta calidad.', 'https://example.com/images/colcha-cama.jpg', 59.99, 'bedroom', 25, 3);
+
+-- Producto 6: Estantería Modular
+INSERT INTO products (product_name, product_description, image_url, price, category, stock, seller_id)
+VALUES ('Estantería Modular', 'Estantería modular con múltiples configuraciones y acabados en madera natural.', 'https://example.com/images/estanteria-modular.jpg', 149.99, 'living', 40, 3);
+
 
 insert into role (role_name) values ('BUYER')
 insert into role (role_name) values ('SELLER')
@@ -74,6 +93,9 @@ insert into role (role_name) values ('ADMIN')
 
 select * from users
 
+
+delete from product_order
+delete from products
 
 select * from products
 delete from users where user_id = 2

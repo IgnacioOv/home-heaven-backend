@@ -24,7 +24,7 @@ public class ProductOrderService {
         return productOrders.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public List<Object[]> getRecommendedProducts() {
+    public Object[] getRecommendedProducts() {
         return productOrderRepository.getRecommendedProducts();
     }
 
