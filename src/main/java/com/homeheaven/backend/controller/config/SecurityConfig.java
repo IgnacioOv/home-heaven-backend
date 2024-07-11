@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/products/add", "/products/edit/{productId}", "/products/delete/{productId}").hasAnyAuthority(Role.SELLER.name(), Role.ADMIN.name())
                         .requestMatchers("/users/register", "/users/authenticate").permitAll()
                         .requestMatchers("/productOrder/recommended").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
@@ -40,4 +40,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

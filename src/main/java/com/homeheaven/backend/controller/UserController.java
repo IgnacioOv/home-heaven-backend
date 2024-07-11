@@ -1,6 +1,7 @@
 package com.homeheaven.backend.controller;
 
 
+import com.homeheaven.backend.dtos.UpdateUserDto;
 import com.homeheaven.backend.entity.User;
 import com.homeheaven.backend.service.UserService;
 import lombok.AllArgsConstructor;
@@ -60,10 +61,10 @@ public class UserController {
         }
     }
 
-    @PutMapping("/edit/{userId}")
-public ResponseEntity<Object> editUser(@PathVariable int userId, @RequestBody User userDetails) {
+    @PutMapping("/edit")
+public ResponseEntity<Object> editUser(@RequestBody UpdateUserDto updateUserDto) {
         try {
-            userService.editUser(userId, userDetails);
+            userService.editUser(updateUserDto);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e) {

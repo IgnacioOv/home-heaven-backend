@@ -1,8 +1,10 @@
 package com.homeheaven.backend.service;
 
+import com.homeheaven.backend.dtos.UpdateUserDto;
 import com.homeheaven.backend.entity.User;
 import com.homeheaven.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,18 +37,18 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    public User editUser(int userId, User userDetails) {
+    public ResponseEntity<User> editUser(UpdateUserDto updateUserDto) {
 
-        User user = userRepository.findById(userId).orElse(null);
+        User user = userRepository.findById(updateUserDto.getUserId()).orElse(null);
         if (user == null) {
             return null;
         }
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setEmail(userDetails.getEmail());
-        user.setRole(userDetails.getRole());
-        user.setUserPassword(passwordEncoder.encode(userDetails.getUserPassword()));
+        user.setFirstName(updateUserDto.getFirstName());
+        user.setLastName(updateUserDto.getLastName());
+        user.setEmail(updateUserDto.getEmail());
+        user.setRole(updateUserDto.getRole());
+        user.setUserPassword(passwordEncoder.encode(updateUserDto.getPassword()));
 
-        return userRepository.save(user);
+        return ResponseEntity.ok(userRepository.save(user));
     }
 }
