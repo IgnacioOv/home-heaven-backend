@@ -72,5 +72,4 @@ public ResponseEntity<Object> editUser(@RequestBody UpdateUserDto updateUserDto)
         }
     }
 
-
 }

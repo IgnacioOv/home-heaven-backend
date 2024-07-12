@@ -47,8 +47,12 @@ public class UserService {
         user.setLastName(updateUserDto.getLastName());
         user.setEmail(updateUserDto.getEmail());
         user.setRole(updateUserDto.getRole());
-        user.setUserPassword(passwordEncoder.encode(updateUserDto.getPassword()));
+
+        if (updateUserDto.getPassword() != null && !updateUserDto.getPassword().isEmpty()) {
+            user.setUserPassword(passwordEncoder.encode(updateUserDto.getPassword()));
+        }
 
         return ResponseEntity.ok(userRepository.save(user));
     }
+
 }
