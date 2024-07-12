@@ -101,8 +101,6 @@ insert into role (role_name) values ('ADMIN')
 
 
 select * from users
-
-
 delete from product_order
 
 
